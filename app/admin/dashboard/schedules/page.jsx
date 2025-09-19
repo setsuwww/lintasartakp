@@ -1,45 +1,12 @@
-import { prisma } from "@/lib/prisma";
-
-import { Tag } from "lucide-react";
-import ScheduleCard from "./SchedulesCard";
+// app/admin/dashboard/schedules/page.tsx
 import { DashboardHeader } from "../DashboardHeader";
-import ContentForm from "@/components/content/ContentForm";
 import { ContentInformation } from "@/components/content/ContentInformation";
+import ContentForm from "@/components/content/ContentForm";
 import { Pagination } from "../Pagination";
-
+import ScheduleCard from "./SchedulesCard";
+import { getSchedules, getScheduleCount } from "@/app/api/schedules/data";
 import { frequenciesLabel } from "@/constants/frequencyStyles";
-
-const PAGE_SIZE = 5;
-
-export async function getSchedules(page = 1) {
-  return await prisma.schedule.findMany({
-    skip: (page - 1) * PAGE_SIZE,
-    take: PAGE_SIZE,
-    select: {
-      id: true,
-      title: true, description: true,
-      startDate: true, endDate: true,
-      frequency: true,
-      userId: true,
-      shiftId: true,
-      createdAt: true, updatedAt: true,
-      shift: {
-        select: {
-          id: true,
-          type: true,
-          startTime: true,
-          endTime: true,
-        },
-      },
-    },
-    orderBy: { startDate: "asc" },
-  });
-}
-
-
-export async function getScheduleCount() {
-  return await prisma.schedule.count();
-}
+import { Tag } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -51,17 +18,13 @@ export default async function Page({ searchParams }) {
     getScheduleCount(),
   ]);
 
-  const schedules = schedulesRaw.map(s => ({
+  // convert tanggal biar aman di client
+  const schedules = schedulesRaw.map((s) => ({
     ...s,
-    startDate: s.startDate?.toISOString() ?? null, endDate: s.endDate?.toISOString() ?? null,
-    createdAt: s.createdAt?.toISOString() ?? null, updatedAt: s.updatedAt?.toISOString() ?? null,
-    shift: s.shift
-      ? {
-        ...s.shift,
-        startTime: s.shift.startTime,
-        endTime: s.shift.endTime,
-      }
-      : null,
+    startDate: s.startDate?.toISOString() ?? null,
+    endDate: s.endDate?.toISOString() ?? null,
+    createdAt: s.createdAt?.toISOString() ?? null,
+    updatedAt: s.updatedAt?.toISOString() ?? null,
   }));
 
   const totalPages = Math.ceil(total / 5);
@@ -75,11 +38,20 @@ export default async function Page({ searchParams }) {
       <DashboardHeader title="Schedules" subtitle="List of your schedules" />
       <ContentForm>
         <ContentForm.Header>
-          <ContentInformation heading="Schedule table" subheading="Manage schedule more detail than calendar view" />
+          <ContentInformation
+            heading="Schedule table"
+            subheading="Manage schedule more detail than calendar view"
+          />
           <div className="flex items-center space-x-2 mt-4 mb-4">
             {frequenciesLabel.map((f) => (
-              <div key={f.label} className={`flex items-center space-x-2 bg-${f.color}-100 border border-${f.color}-200 px-2 py-0.5 rounded-md`}>
-                <Tag strokeWidth={2} className={`w-3 h-3 text-${f.color}-600`} />
+              <div
+                key={f.label}
+                className={`flex items-center space-x-2 bg-${f.color}-100 border border-${f.color}-200 px-2 py-0.5 rounded-md`}
+              >
+                <Tag
+                  strokeWidth={2}
+                  className={`w-3 h-3 text-${f.color}-600`}
+                />
                 <span className={`text-${f.color}-600 text-sm font-base`}>
                   {f.label}
                 </span>
@@ -92,7 +64,11 @@ export default async function Page({ searchParams }) {
           <ScheduleCard data={schedules} />
         </ContentForm.Body>
 
-        <Pagination page={page} totalPages={totalPages} basePath="/admin/dashboard/schedules" />
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          basePath="/admin/dashboard/schedules"
+        />
       </ContentForm>
     </section>
   );

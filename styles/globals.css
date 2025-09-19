@@ -135,6 +135,24 @@
     color: #18181b !important;
   }
 
+  /* Hilangin highlight biru saat select */
+.fc .fc-highlight {
+  background: transparent !important;
+}
+
+/* Hilangin label angka biru di pojok */
+.fc .fc-daygrid-day-number {
+  color: inherit !important;
+  font-weight: inherit !important;
+}
+
+/* Hilangin warna background biru event bawaan */
+.fc .fc-event {
+  background: transparent !important;
+  border: none !important;
+}
+
+
   .fc-button {
     background: white !important;
     border: 1px solid #e4e4e7 !important;
@@ -189,6 +207,14 @@
   .fc-theme-standard th {
     border-color: #f4f4f5 !important;
   }
+
+  .fc {
+  font-size: 0.75rem; /* text-xs */
+}
+
+.fc .fc-daygrid-day-frame {
+  padding: 0.15rem !important; /* rapetin padding */
+}
 }
 
 @layer components {
