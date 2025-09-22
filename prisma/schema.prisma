@@ -116,6 +116,8 @@ model ScheduleAssignment {
   @@unique([scheduleId, userId])
 }
 
+// schedule kalo dibuat dia assign user, schedule buat 1 kali, 1 schedule nampilin banyak user
+
 model Shift { 
   id        Int       @id @default(autoincrement()) 
   type      ShiftType 
