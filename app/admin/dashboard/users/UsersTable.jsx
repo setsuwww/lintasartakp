@@ -6,7 +6,6 @@ import { UsersActionHeader } from "./UsersActionHeader";
 import { UsersRow } from "./UsersRow";
 import { roleStyles } from "@/constants/roleStyles";
 import { useUsersHooks } from "@/function/hooks/useUsersHooks";
-import { Users, AtSign, ClockFading, Menu, Activity } from 'lucide-react';
 
 export default function UsersTable({ data }) { const {
     search, handleSearchChange,

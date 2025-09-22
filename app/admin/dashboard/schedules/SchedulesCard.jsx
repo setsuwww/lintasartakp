@@ -16,7 +16,7 @@ import { frequencyStyles } from "@/constants/frequencyStyles";
 
 export default function SchedulesCard({ data }) {
   const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("newest");
+  const [filterFrequency, setFilterFrequency] = useState("all");
   const [selectedIds, setSelectedIds] = useState([]);
 
   const router = useRouter();
@@ -24,36 +24,36 @@ export default function SchedulesCard({ data }) {
   const filteredData = useMemo(() => {
     const safeData = Array.isArray(data) ? data : [];
 
-    const filtered = safeData.filter((s) => {
+    return safeData.filter((s) => {
       const title = s?.title ?? "";
       const desc = s?.description ?? "";
-      return (
-        title.toLowerCase().includes(search.toLowerCase()) ||
-        desc.toLowerCase().includes(search.toLowerCase())
-      );
-    });
+      const frequency = s?.frequency ?? "";
 
-    return filtered.sort((a, b) => {
-      const dateA = new Date(a.startDate).getTime();
-      const dateB = new Date(b.startDate).getTime();
-      return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+      const matchesSearch =
+        title.toLowerCase().includes(search.toLowerCase()) ||
+        desc.toLowerCase().includes(search.toLowerCase());
+
+      const matchesFrequency =
+        filterFrequency === "all" || frequency === filterFrequency;
+
+      return matchesSearch && matchesFrequency;
     });
-  }, [data, search, sortOrder]);
+  }, [data, search, filterFrequency]);
 
   const {
     toggleSelect, deleteSelected, deleteAll,
     handleEditSchedule, handleDeleteSchedule,
     onExportPDF,
-  } = 
-  handleSchedules(
-    selectedIds, setSelectedIds, filteredData, () => router.refresh()
-  );
+  } =
+    handleSchedules(
+      selectedIds, setSelectedIds, filteredData, () => router.refresh()
+    );
 
   return (
     <div className="space-y-4">
       <SchedulesActionHeader
         search={search} setSearch={setSearch}
-        sortOrder={sortOrder} onSortChange={setSortOrder}
+        filterFrequency={filterFrequency} onFilterChange={setFilterFrequency}
         selectedCount={selectedIds.length} totalCount={filteredData.length}
         onDeleteSelected={deleteSelected} onDeleteAll={deleteAll}
         onExportPDF={() => onExportPDF(filteredData)}
@@ -136,17 +136,17 @@ export default function SchedulesCard({ data }) {
                     <span className="text-green-500">
                       {schedule.startDate
                         ? format(
-                            new Date(schedule.startDate),
-                            "dd-MMMM-yyyy HH:mm"
-                          )
+                          new Date(schedule.startDate),
+                          "dd-MMMM-yyyy HH:mm"
+                        )
                         : "-"}
                     </span>
                     <span className="text-red-500">
                       {schedule.endDate
                         ? format(
-                            new Date(schedule.endDate),
-                            "dd-MMMM-yyyy HH:mm"
-                          )
+                          new Date(schedule.endDate),
+                          "dd-MMMM-yyyy HH:mm"
+                        )
                         : "-"}
                     </span>
                   </div>

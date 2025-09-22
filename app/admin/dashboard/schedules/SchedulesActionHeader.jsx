@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/Input";
 
 export default function SchedulesActionHeader({
   search, setSearch,
-  sortOrder, onSortChange,
-  selectedCount, totalCount,
+  filterFrequency, onFilterChange,
+  selectedCount,
   onDeleteSelected, onDeleteAll,
   onExportPDF
 }) {
@@ -16,7 +16,7 @@ export default function SchedulesActionHeader({
       <div className="flex items-center gap-x-1">
         <Input placeholder="Search schedule..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full sm:w-64 bg-white py-1.5" />
 
-        <Select value={sortOrder} onValueChange={onSortChange}>
+        <Select value={filterFrequency} onValueChange={onFilterChange}>
           <SelectTrigger className="w-auto px-3 whitespace-nowrap">
             <span className="font-semibold text-zinc-600 mr-1">Frequency:</span>
             <SelectValue placeholder="all" />
