@@ -67,19 +67,10 @@ model User {
   shift    Shift?  @relation("DefaultShift", fields: [shiftId], references: [id])
   shiftId  Int?
 
-<<<<<<< HEAD
-  customShifts UserShiftAssignment[]
-
-  schedules           Schedule[]
-  attendances         Attendance[]
-  permissionRequests  PermissionRequest[]
-  scheduleAssignments ScheduleAssignment[]
-=======
   customShifts         UserShiftAssignment[]
   schedules            SchedulesOnUsers[]
   attendances          Attendance[]
   permissionRequests   PermissionRequest[]
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
 
   office   Office? @relation(fields: [officeId], references: [id], onDelete: SetNull)
   officeId Int?
@@ -88,47 +79,6 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-<<<<<<< HEAD
-model Schedule {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String?
-  frequency   FrequencyType @default(ONCE)
-  startDate   DateTime?
-  endDate     DateTime?
-
-  user    User?   @relation(fields: [userId], references: [id])
-  userId  Int?
-
-  shift   Shift?  @relation(fields: [shiftId], references: [id], onDelete: Cascade)
-  shiftId Int?
-
-  office   Office? @relation(fields: [officeId], references: [id])
-  officeId Int?
-
-  assignedUsers ScheduleAssignment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model ScheduleAssignment {
-  id         Int      @id @default(autoincrement())
-  scheduleId Int
-  userId     Int
-
-  assignedAt DateTime @default(now())
-
-  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([scheduleId, userId])
-}
-
-// schedule kalo dibuat dia assign user, schedule buat 1 kali, 1 schedule nampilin banyak user
-
-=======
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
 model Shift { 
   id        Int       @id @default(autoincrement()) 
   type      ShiftType 

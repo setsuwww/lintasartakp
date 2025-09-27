@@ -18,10 +18,7 @@ import { frequencyStyles } from "@/constants/frequencyStyles";
 export default function SchedulesCard({ data }) {
   const [search, setSearch] = useState("");
   const [filterFrequency, setFilterFrequency] = useState("all");
-<<<<<<< HEAD
-=======
   const [filterShift, setFilterShift] = useState("all");
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
   const [selectedIds, setSelectedIds] = useState([]);
 
   const router = useRouter();
@@ -29,23 +26,6 @@ export default function SchedulesCard({ data }) {
   const filteredData = useMemo(() => {
   const safeData = Array.isArray(data) ? data : [];
 
-<<<<<<< HEAD
-    return safeData.filter((s) => {
-      const title = s?.title ?? "";
-      const desc = s?.description ?? "";
-      const frequency = s?.frequency ?? "";
-
-      const matchesSearch =
-        title.toLowerCase().includes(search.toLowerCase()) ||
-        desc.toLowerCase().includes(search.toLowerCase());
-
-      const matchesFrequency =
-        filterFrequency === "all" || frequency === filterFrequency;
-
-      return matchesSearch && matchesFrequency;
-    });
-  }, [data, search, filterFrequency]);
-=======
   return safeData
     .filter((s) => {
       const title = s?.title ?? "";
@@ -69,32 +49,20 @@ export default function SchedulesCard({ data }) {
       return dateB - dateA; // newest first
     });
   }, [data, search, filterFrequency, filterShift]);
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
 
   const {
     toggleSelect, deleteSelected, deleteAll,
     handleEditSchedule, handleDeleteSchedule,
     onExportPDF,
-<<<<<<< HEAD
-  } =
-    handleSchedules(
-      selectedIds, setSelectedIds, filteredData, () => router.refresh()
-    );
-=======
   } = handleSchedules(
     selectedIds, setSelectedIds, filteredData, () => router.refresh()
   );
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
 
   return (
     <div className="space-y-4">
       <SchedulesActionHeader
         search={search} setSearch={setSearch}
-<<<<<<< HEAD
-        filterFrequency={filterFrequency} onFilterChange={setFilterFrequency}
-=======
         filterFrequency={filterFrequency} onFilterFrequencyChange={setFilterFrequency}
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
         selectedCount={selectedIds.length} totalCount={filteredData.length}
         onDeleteSelected={deleteSelected} onDeleteAll={deleteAll}
         filterShift={filterShift} onFilterShiftChange={setFilterShift}
@@ -150,33 +118,8 @@ export default function SchedulesCard({ data }) {
                 </CardHeader>
 
                 <CardContent className="space-y-3">
-<<<<<<< HEAD
-                  <p className="text-sm text-zinc-500 whitespace-pre-wrap break-words">
-                    {schedule.description}
-                  </p>
-
-                  <div className="text-xs font-semibold flex flex-col gap-0.5">
-                    <span className="text-green-500">
-                      {schedule.startDate
-                        ? format(
-                          new Date(schedule.startDate),
-                          "dd-MMMM-yyyy HH:mm"
-                        )
-                        : "-"}
-                    </span>
-                    <span className="text-red-500">
-                      {schedule.endDate
-                        ? format(
-                          new Date(schedule.endDate),
-                          "dd-MMMM-yyyy HH:mm"
-                        )
-                        : "-"}
-                    </span>
-                  </div>
-=======
                   <p className="text-sm font-semibold text-zinc-600">Assigned Users:</p>
                   <ScheduleUsersDialog users={schedule.users} schedules={schedule} />
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
                 </CardContent>
 
                 <CardFooter className="flex justify-between items-center text-xs text-zinc-500">

@@ -115,40 +115,6 @@ export default function ScheduleForm({ users, shifts }) {
 
     setLoading(true)
     try {
-<<<<<<< HEAD
-      await apiFetch({
-        url: "/schedules",
-        method: "post",
-        data: {
-          title: form.title,
-          description: form.description,
-          userIds: form.userIds,
-          dates: events.filter((e) => e.shiftId)
-            .map((e) => ({
-              date: e.date,
-              shiftId: e.shiftId,
-              secondShiftId: e.secondShiftId || null,
-            })),
-        },
-        successMessage: "Schedule created successfully",
-        errorMessage: "Failed to create schedule",
-      })
-
-      setForm({
-        title: "",
-        description: "",
-        frequency: "ONCE",
-        userIds: [],
-      })
-      setEvents([])
-      setActiveDate(null)
-    } catch (err) {
-      console.error("Error creating schedule:", err)
-      // error toast udah otomatis dari wrapper
-    } finally {
-      setLoading(false)
-    }
-=======
   const result = await fetch({
     url: "/schedules",
     method: "post",
@@ -187,7 +153,6 @@ finally {
   setLoading(false)
 }
 
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
   }
 
   const memoizedUsers = useMemo(() => users, [users])

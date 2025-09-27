@@ -1,14 +1,11 @@
 // app/admin/dashboard/schedules/page.tsx
+import { Tag } from "lucide-react";
 import { DashboardHeader } from "../DashboardHeader";
 import { ContentInformation } from "@/components/content/ContentInformation";
 import ContentForm from "@/components/content/ContentForm";
 import { Pagination } from "../Pagination";
 import ScheduleCard from "./SchedulesCard";
-import { getSchedules, getScheduleCount } from "@/app/api/schedules/data";
 import { frequenciesLabel } from "@/constants/frequencyStyles";
-<<<<<<< HEAD
-import { Tag } from "lucide-react";
-=======
 
 const PAGE_SIZE = 5;
 
@@ -63,7 +60,6 @@ export async function getScheduleCount({ search = "", frequency }) {
     },
   });
 }
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
 
 export const revalidate = 60;
 
@@ -77,18 +73,12 @@ export default async function Page({ searchParams }) {
     getScheduleCount({ search, frequency }),
   ]);
 
-<<<<<<< HEAD
-  // convert tanggal biar aman di client
-=======
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
   const schedules = schedulesRaw.map((s) => ({
     ...s,
     startDate: s.startDate?.toISOString() ?? null,
     endDate: s.endDate?.toISOString() ?? null,
     createdAt: s.createdAt?.toISOString() ?? null,
     updatedAt: s.updatedAt?.toISOString() ?? null,
-<<<<<<< HEAD
-=======
     shift: s.shift
       ? {
           ...s.shift,
@@ -96,7 +86,6 @@ export default async function Page({ searchParams }) {
           endTime: s.shift.endTime,
         }
       : null,
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
   }));
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -110,28 +99,11 @@ export default async function Page({ searchParams }) {
       <DashboardHeader title="Schedules" subtitle="List of your schedules" />
       <ContentForm>
         <ContentForm.Header>
-<<<<<<< HEAD
-          <ContentInformation
-            heading="Schedule table"
-            subheading="Manage schedule more detail than calendar view"
-          />
-          <div className="flex items-center space-x-2 mt-4 mb-4">
-            {frequenciesLabel.map((f) => (
-              <div
-                key={f.label}
-                className={`flex items-center space-x-2 bg-${f.color}-100 border border-${f.color}-200 px-2 py-0.5 rounded-md`}
-              >
-                <Tag
-                  strokeWidth={2}
-                  className={`w-3 h-3 text-${f.color}-600`}
-                />
-=======
           <ContentInformation heading="Schedule table" subheading="Manage schedule more detail than calendar view"/>
           <div className="flex items-center space-x-2 mt-4 mb-4">
             {frequenciesLabel.map((f) => (
               <div key={f.label} className={`flex items-center space-x-2 bg-${f.color}-50 border border-${f.color}-100 px-2 py-0.5 rounded-md`}>
                 <Tag strokeWidth={2} className={`w-3 h-3 text-${f.color}-600`}/>
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
                 <span className={`text-${f.color}-600 text-sm font-base`}>
                   {f.label}
                 </span>
@@ -144,15 +116,7 @@ export default async function Page({ searchParams }) {
           <ScheduleCard data={schedules} />
         </ContentForm.Body>
 
-<<<<<<< HEAD
-        <Pagination
-          page={page}
-          totalPages={totalPages}
-          basePath="/admin/dashboard/schedules"
-        />
-=======
         <Pagination page={page} totalPages={totalPages} basePath="/admin/dashboard/schedules"/>
->>>>>>> 8c2e1abf2af9e12b65d175730299d578d19ddbee
       </ContentForm>
     </section>
   );
