@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prisma:fresh": "npm cache clean --force && prisma migrate reset --force && prisma generate && npm run prisma:seed",
     "prisma:seed": "node prisma/seed.js",
     "dev": "next dev --turbopack",
     "build": "next build",

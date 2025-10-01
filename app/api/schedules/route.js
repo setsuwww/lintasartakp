@@ -52,19 +52,22 @@ export async function DELETE(req) {
   const user = await getUserFromToken();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  try { const body = await req.json().catch(() => ({}));
+  try {
+    const body = await req.json().catch(() => ({}));
     const ids = body.ids;
 
-    if (ids && ids.length > 0) { await prisma.schedule.deleteMany({
+    if (ids && ids.length > 0) {
+      await prisma.schedule.deleteMany({
         where: { id: { in: ids }, userId: user.id },
       });
       return NextResponse.json({ message: "Selected schedules deleted" });
-    } else { await prisma.schedule.deleteMany({
+    } else {
+      await prisma.schedule.deleteMany({
         where: { userId: user.id },
       });
       return NextResponse.json({ message: "All schedules deleted" });
     }
-  } 
+  }
   catch {
     return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
   }

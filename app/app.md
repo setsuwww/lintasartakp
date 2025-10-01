@@ -51,5 +51,4 @@ Attendance {
     users[name, email]
     status({})
     shift[]
-
 }

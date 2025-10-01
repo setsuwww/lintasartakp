@@ -1,12 +1,10 @@
-import { prisma } from "@/lib/prisma";
-
+// app/admin/dashboard/schedules/page.tsx
 import { Tag } from "lucide-react";
-import ScheduleCard from "./SchedulesCard";
 import { DashboardHeader } from "../DashboardHeader";
-import ContentForm from "@/components/content/ContentForm";
 import { ContentInformation } from "@/components/content/ContentInformation";
+import ContentForm from "@/components/content/ContentForm";
 import { Pagination } from "../Pagination";
-
+import ScheduleCard from "./SchedulesCard";
 import { frequenciesLabel } from "@/constants/frequencyStyles";
 
 const PAGE_SIZE = 5;
