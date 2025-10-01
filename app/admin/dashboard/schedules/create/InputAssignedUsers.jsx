@@ -13,7 +13,7 @@ export default function InputAssignedUsers({ users, selectedUserIds, toggleUser,
   const selectedUsers = users.filter((u) => selectedUserIds.includes(u.id))
 
   return (
-    <div className="space-y-2 max-w-md">
+    <div className="spgit bace-y-2 max-w-md">
       <Label className="text-zinc-700 text-sm">Assign Users</Label>
 
       {selectedUsers.length > 0 && (
